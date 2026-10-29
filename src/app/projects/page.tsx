@@ -13,12 +13,6 @@ export const metadata: Metadata = createPageMetadata({
 export default function ProjectsPage() {
   return (
     <>
-      <a
-        href="#projects-grid"
-        className="sr-only z-[200] focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:bg-[#102511] focus:px-4 focus:py-3 focus:font-sans focus:text-sm focus:text-[#f3f0e7] focus:outline-none"
-      >
-        Skip to projects
-      </a>
       <ProjectsGallery />
       <script
         type="application/ld+json"

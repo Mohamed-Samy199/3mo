@@ -13,12 +13,6 @@ export const metadata: Metadata = createPageMetadata({
 export default function ContactPage() {
   return (
     <>
-      <a
-        href="#main-content"
-        className="sr-only z-[200] focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:bg-[#102511] focus:px-4 focus:py-3 focus:font-sans focus:text-sm focus:text-[#f3f0e7] focus:outline-none"
-      >
-        Skip to content
-      </a>
       <PersistentSiteChrome />
       <main id="main-content" className="min-h-screen bg-[#f3f0e7] text-[#102511]">
         <h1 className="sr-only">Start a project with 3Mo</h1>

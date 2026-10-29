@@ -10,12 +10,6 @@ import { jsonLd, organizationStructuredData } from "@/lib/seo";
 export default function HomePage() {
   return (
     <>
-      <a
-        href="#main-content"
-        className="sr-only z-[200] focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:bg-[#102511] focus:px-4 focus:py-3 focus:font-sans focus:text-sm focus:text-[#f3f0e7] focus:outline-none"
-      >
-        Skip to content
-      </a>
       <PersistentSiteChrome />
       <main id="main-content" className="relative">
         <h1 className="sr-only">3Mo — Creative technology, branding and digital experiences</h1>
