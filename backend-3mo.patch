@@ -1,0 +1,34 @@
+diff --git a/src/sites.seed.js b/src/sites.seed.js
+index 9553fc2..3a18a51 100644
+--- a/src/sites.seed.js
++++ b/src/sites.seed.js
+@@ -16,9 +16,9 @@ export const sites = [
+   },
+   {
+     key: "3mo",
+-    name: "3mo",
++    name: "3Mo",
+     receiverEmail: "mooh246samy@gmail.com",
+-    allowedOrigins: ["http://localhost:5173"],
++    allowedOrigins: ["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:3000"],
+     brandColor: "#0bb235",
+   },
+-];
+\ No newline at end of file
++];
+diff --git a/.env.example b/.env.example
+new file mode 100644
+index 0000000..571503d
+--- /dev/null
++++ b/.env.example
+@@ -0,0 +1,10 @@
++MONGODB_URI=mongodb://127.0.0.1:27017/contact-hub
++EMAIL_USER=your-sending-account@example.com
++EMAIL_PASS=your-gmail-app-password
++PORT=5000
++NODE_ENV=development
++
++# Optional comma-separated explicit origins for local testing only.
++# Do not use a wildcard. Add the temporary frontend preview origin here when needed,
++# then remove it after testing (for example: https://3000-<session>.manus.computer).
++# EXTRA_ORIGINS=https://3000-<session>.manus.computer

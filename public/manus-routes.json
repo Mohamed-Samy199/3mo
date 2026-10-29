@@ -1,0 +1,7 @@
+{
+  "routes": [
+    { "path": "/", "title": "3Mo — Creative technology" },
+    { "path": "/projects/", "title": "Selected projects" },
+    { "path": "/contact/", "title": "Start a project" }
+  ]
+}
