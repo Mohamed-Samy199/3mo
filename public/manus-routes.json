@@ -2,6 +2,9 @@
   "routes": [
     { "path": "/", "title": "3Mo — Creative technology" },
     { "path": "/projects/", "title": "Selected projects" },
-    { "path": "/contact/", "title": "Start a project" }
+    { "path": "/contact/", "title": "Start a project" },
+    { "path": "/ar/", "title": "3Mo — تقنية إبداعية" },
+    { "path": "/ar/projects/", "title": "مشاريع مختارة" },
+    { "path": "/ar/contact/", "title": "ابدأ مشروعاً" }
   ]
 }

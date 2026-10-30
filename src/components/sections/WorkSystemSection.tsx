@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ServiceDetailPanel, { type ServiceId } from "./ServiceDetailPanel";
 import CursorScrubMascot from "./CursorScrubMascot";
+import { useI18n } from "@/components/i18n/LanguageProvider";
 
 type MethodBackgroundPalette = {
   top: string;
@@ -68,6 +69,7 @@ const services: {
 ];
 
 export default function WorkSystemSection() {
+  const { t, href } = useI18n();
   const [selectedServiceId, setSelectedServiceId] = useState<ServiceId | null>(null);
   const [mascotVideoReady, setMascotVideoReady] = useState(false);
   const [methodPalette, setMethodPalette] = useState(INITIAL_METHOD_PALETTE);
@@ -91,27 +93,27 @@ export default function WorkSystemSection() {
     >
       <div className="relative mx-auto flex min-h-[100svh] max-w-[1920px] flex-col px-6 pb-6 pt-6 sm:px-10 sm:pb-8 sm:pt-8 md:px-[clamp(40px,4.5vw,84px)]">
         <div className="relative flex flex-1 flex-col md:block">
-          <div className="relative z-20 mt-4 max-w-[560px] md:absolute md:left-[3.5%] md:top-[12%] md:mt-0 md:w-[39%]">
+          <div className="method-copy relative z-20 mt-4 max-w-[560px] md:absolute md:left-[3.5%] md:top-[12%] md:mt-0 md:w-[39%]">
             <p className="mb-5 font-sans text-[11px] uppercase tracking-[0.18em] text-[#58844d] sm:text-[10px]">
-              THE 3MO METHOD
+              {t("THE 3MO METHOD")}
             </p>
             <h2
               id="method-title"
               className="text-[clamp(48px,6vw,92px)] font-semibold leading-[1.02] tracking-[-0.035em]"
             >
-              From idea
+              {t("From idea")}
               <br />
-              <span className="text-[#718168]">to impact</span>
+              <span className="text-[#718168]">{t("to impact")}</span>
               <span className="text-[#71bc70]">.</span>
             </h2>
             <p className="mt-6 max-w-[350px] text-sm leading-[1.55] text-[#102511]/65 sm:text-[15px]">
-              Three founders bring strategy, creativity, and technology together—combining marketing, branding, programming, and content to turn a good idea into real impact.
+              {t("Three founders bring strategy, creativity, and technology together—combining marketing, branding, programming, and content to turn a good idea into real impact.")}
             </p>
             <Link
-              href="/contact"
+              href={href("/contact")}
               className="mt-6 inline-flex min-h-11 items-center gap-3 border-b border-[#315c36]/50 pb-2 font-sans text-[11px] uppercase tracking-[0.13em] text-[#102511] transition-colors hover:border-[#315c36] hover:text-[#315c36] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#71bc70]"
             >
-              Start a conversation <span aria-hidden="true">↗</span>
+              {t("Start a conversation")} <span aria-hidden="true">↗</span>
             </Link>
           </div>
 
@@ -139,14 +141,14 @@ export default function WorkSystemSection() {
             >
               <span className="h-1.5 w-1.5 rounded-full bg-[#71bc70]" />
               {selectedService
-                ? `${selectedService.name} — IN THE 3MO METHOD`
-                : "THREE - TWO / DONE"}
+                ? `${t(selectedService.name)} — ${t("IN THE 3MO METHOD")}`
+                : t("THREE - TWO / DONE")}
             </div>
           </div>
 
           <div
             role="group"
-            aria-label="Explore the four 3Mo service disciplines"
+            aria-label={t("Explore the four 3Mo service disciplines")}
             className="relative z-30 mt-1 grid grid-cols-2 gap-3 pb-7 sm:gap-4 md:absolute md:inset-0 md:mt-0 md:block md:pb-0"
           >
             {services.map((service) => {
@@ -159,7 +161,7 @@ export default function WorkSystemSection() {
                   aria-expanded={isSelected}
                   aria-controls="service-detail-panel"
                   onClick={() => setSelectedServiceId(service.id)}
-                  className={`group relative flex h-[132px] flex-col justify-between border px-4 py-3 text-left shadow-[0_12px_36px_rgba(16,37,17,.07)] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:rotate-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#71bc70] sm:h-[148px] sm:px-5 sm:py-4 md:absolute md:h-[150px] md:w-[174px] md:px-4 md:py-4 ${service.position} ${
+                  className={`group relative flex h-[132px] flex-col justify-between border px-4 py-3 text-start shadow-[0_12px_36px_rgba(16,37,17,.07)] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:rotate-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#71bc70] sm:h-[148px] sm:px-5 sm:py-4 md:absolute md:h-[150px] md:w-[174px] md:px-4 md:py-4 ${service.position} ${
                     isSelected
                       ? "border-[#315c36]/60 bg-[#e7f0df]/95"
                       : "border-[#102511]/15 bg-[#fbfaf5]/85 hover:border-[#315c36]/45 hover:bg-white/95"
@@ -178,10 +180,10 @@ export default function WorkSystemSection() {
                     </span>
                   </span>
                   <span className="text-[16px] font-semibold leading-tight tracking-[-0.035em] sm:text-lg">
-                    {service.name}
+                    {t(service.name)}
                   </span>
                   <span className="flex items-end justify-between gap-2 font-sans text-[11px] tracking-[0.1em] text-[#102511]/60 sm:text-[11px]">
-                    {service.promise}
+                    {t(service.promise)}
                     <span aria-hidden="true" className="text-sm leading-none text-[#102511]">
                       ↗
                     </span>

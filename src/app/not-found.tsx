@@ -31,6 +31,11 @@ export default function NotFound() {
           >
             Back to home <span aria-hidden="true">↗</span>
           </Link>
+          <div lang="ar" dir="rtl" className="site-locale mt-10 border-t border-[#f3f0e7]/20 pt-6">
+            <h2 className="text-2xl font-semibold">لم نعثر على هذه الصفحة.</h2>
+            <p className="mt-3 text-sm text-[#f3f0e7]/70">ربما تغيّر الرابط. يمكنك العودة إلى الرئيسية لمتابعة استكشاف 3Mo.</p>
+            <Link href="/ar/" className="mt-4 inline-flex min-h-11 items-center gap-3 text-sm font-medium text-[#a4ef91] hover:underline">العودة إلى الرئيسية العربية <span aria-hidden="true">↗</span></Link>
+          </div>
         </div>
       </main>
     </>

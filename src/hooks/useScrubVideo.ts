@@ -7,12 +7,17 @@ export function useScrubVideo(
   enabled = true,
   // false: الماوس يمين يتقدم بالفيديو؛ true يحافظ على الاتجاه العكسي للفيديوهات الأخرى.
   invertDirection = true,
+  paused = false,
 ) {
   const [isReady, setIsReady] = useState(false);
   const [mode, setMode] = useState<"scrub" | "autoplay" | "static">("scrub");
   const targetClientX = useRef<number | null>(null);
   const smoothedTime = useRef(0);
   const rafId = useRef<number | null>(null);
+  const pausedRef = useRef(paused);
+  const readyRef = useRef(false);
+  const playRequestRef = useRef(0);
+  pausedRef.current = paused;
 
   useEffect(() => {
     const coarse = window.matchMedia("(pointer: coarse)").matches;
@@ -24,22 +29,26 @@ export function useScrubVideo(
     const video = videoRef.current;
     if (!video) return;
 
-    setIsReady(false);
     if (!enabled) {
+      playRequestRef.current += 1;
       video.pause();
       targetClientX.current = null;
+      readyRef.current = false;
+      setIsReady(false);
       return;
     }
 
+    if (!readyRef.current) setIsReady(false);
+
     const handleMetadata = () => {
-      video.currentTime = 0;
-      smoothedTime.current = 0;
-      if (mode === "autoplay") {
-        video.loop = true;
-        video.play().catch(() => undefined);
-      } else {
-        video.pause();
+      // A mode change retains the existing frame while paused, but preserves the
+      // original initialization/reset behavior for normal, unpaused use.
+      if (!pausedRef.current) {
+        video.currentTime = 0;
+        smoothedTime.current = 0;
       }
+      video.pause();
+      readyRef.current = true;
       setIsReady(true);
     };
 
@@ -49,7 +58,46 @@ export function useScrubVideo(
   }, [enabled, mode, videoRef]);
 
   useEffect(() => {
-    if (mode !== "scrub" || !enabled) return;
+    const video = videoRef.current;
+    if (!video || !enabled || !isReady || paused) {
+      playRequestRef.current += 1;
+      video?.pause();
+      return;
+    }
+
+    if (mode !== "autoplay") {
+      playRequestRef.current += 1;
+      video.pause();
+      return;
+    }
+
+    video.loop = true;
+    const request = ++playRequestRef.current;
+    try {
+      video
+        .play()
+        .then(() => {
+          if (request !== playRequestRef.current && !pausedRef.current && readyRef.current) return;
+          if (
+            request !== playRequestRef.current ||
+            pausedRef.current ||
+            !enabled
+          ) {
+            video.pause();
+          }
+        })
+        .catch(() => undefined);
+    } catch {
+      // Autoplay is best-effort; the loaded frame remains available.
+    }
+
+    return () => {
+      playRequestRef.current += 1;
+    };
+  }, [enabled, isReady, mode, paused, videoRef]);
+
+  useEffect(() => {
+    if (mode !== "scrub" || !enabled || paused) return;
     const video = videoRef.current;
     if (!video) return;
 
@@ -63,6 +111,7 @@ export function useScrubVideo(
     let lastFrameAt = performance.now();
 
     const tick = (now: number) => {
+      if (pausedRef.current) return;
       const deltaSeconds = Math.min((now - lastFrameAt) / 1000, 0.1);
       lastFrameAt = now;
       if (video.duration > 0 && targetClientX.current !== null) {
@@ -85,9 +134,12 @@ export function useScrubVideo(
     rafId.current = requestAnimationFrame(tick);
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      if (rafId.current !== null) cancelAnimationFrame(rafId.current);
+      if (rafId.current !== null) {
+        cancelAnimationFrame(rafId.current);
+        rafId.current = null;
+      }
     };
-  }, [enabled, invertDirection, mode, videoRef]);
+  }, [enabled, invertDirection, mode, paused, videoRef]);
 
   return { isReady, mode };
 }

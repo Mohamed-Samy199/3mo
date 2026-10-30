@@ -1,36 +1,19 @@
-import { useRef, useState } from "react";
-import { ArrowUpRight, Pause, Play, RotateCcw } from "lucide-react";
+import { useRef } from "react";
+import { ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { useGsapScene } from "@/hooks/useGsapScene";
 import Logo from "@/components/ui/Logo";
+import { useI18n } from "@/components/i18n/LanguageProvider";
 
-type HeroSceneProps = { onComplete?: () => void };
+type HeroSceneProps = { onComplete?: () => void; playing?: boolean };
 
-export default function HeroScene({ onComplete }: HeroSceneProps) {
+export default function HeroScene({ onComplete, playing = true }: HeroSceneProps) {
+  const { href, t } = useI18n();
   const rootRef = useRef<HTMLElement | null>(null);
-  const [playing, setPlaying] = useState(true);
-  const [run, setRun] = useState(0);
-  const { timelineRef } = useGsapScene(rootRef, onComplete, run);
-
-  const togglePlaying = () => {
-    const timeline = timelineRef.current;
-    if (!timeline) return;
-    if (playing) timeline.pause();
-    else timeline.resume();
-    const video = rootRef.current?.querySelector("video");
-    if (playing) video?.pause();
-    else video?.play().catch(() => undefined);
-    setPlaying(!playing);
-  };
-
-  const restart = () => {
-    setRun((value) => value + 1);
-    setPlaying(true);
-  };
+  useGsapScene(rootRef, onComplete, 0, playing);
 
   return (
     <section
-      key={run}
       ref={rootRef}
       className="cinematic-shell relative isolate h-full w-full overflow-hidden bg-[radial-gradient(ellipse_at_68%_48%,#274928_0%,#132a16_30%,#0d170e_72%)] font-sans text-[#f3f3ed]"
     >
@@ -40,16 +23,16 @@ export default function HeroScene({ onComplete }: HeroSceneProps) {
 
       <section className="copy-block absolute left-[clamp(22px,8.5vw,136px)] top-[26%] z-[12] max-[680px]:left-5 max-[680px]:top-[17vh]">
         <p className="kicker mb-7 font-sans text-[10px] uppercase tracking-[.1em] text-[#a4ef91] max-[680px]:mb-5 max-[680px]:text-[11px]">
-          A signal from 3Mo <span className="ml-3 text-[#f3f3ed]">↗</span>
+          {t("A signal from 3Mo")} <span className="ml-3 text-[#f3f3ed]">↗</span>
         </p>
         <div className="hero-copy">
           <h2 className="text-[clamp(78px,11vw,174px)] font-semibold uppercase leading-[1.02] tracking-[-0.035em] max-[680px]:text-[20vw]">
-            Make it
+            {t("Make it")}
             <br />
-            <span className="font-sans font-medium normal-case">move.</span>
+            <span className="font-sans font-medium normal-case">{t("move.")}</span>
           </h2>
           <p className="mt-9 ml-2 w-[260px] text-[13px] leading-[1.45] text-white/55 max-[680px]:mt-6 max-[680px]:w-[210px] max-[680px]:text-[11px]">
-            Three minds shaping one clear direction.
+            {t("Three minds shaping one clear direction.")}
           </p>
         </div>
 
@@ -77,16 +60,15 @@ export default function HeroScene({ onComplete }: HeroSceneProps) {
                   src={siteConfig.heroVideoPath}
                   poster="/videos/scene-02-poster.webp"
                   preload="metadata"
-                  autoPlay
                   muted
                   loop
                   playsInline
-                  aria-label="3Mo project video"
+                  aria-label={t("3Mo project video")}
                 />
                 <div className="screen-overlay absolute inset-x-6 top-4 z-[3] flex items-center gap-4 font-sans text-[11px] text-[#29442a]">
                   <Logo size="micro" />
                   <span>PROJECT / 003</span>
-                  <span className="ml-auto rounded-full border border-[#1a3a1a]/30 px-2 py-1 text-[11px]">VIDEO SYSTEM</span>
+                  <span className="ml-auto rounded-full border border-[#1a3a1a]/30 px-2 py-1 text-[11px]">{t("VIDEO SYSTEM")}</span>
                 </div>
               </div>
             </div>
@@ -100,22 +82,9 @@ export default function HeroScene({ onComplete }: HeroSceneProps) {
         </div>
       </div>
 
-      <a href="#contact" className="cta-button absolute right-[clamp(22px,5vw,78px)] top-1/2 z-20 flex items-center gap-3 border border-white/40 bg-white/5 px-4 py-3 font-sans text-[11px] tracking-[.05em] max-[900px]:bottom-[16%] max-[900px]:top-auto max-[680px]:right-5 max-[680px]:bottom-[25%]">
-        START A PROJECT <ArrowUpRight size={16} />
+      <a href={href("#contact")} className="cta-button absolute right-[clamp(22px,5vw,78px)] top-1/2 z-20 flex items-center gap-3 border border-white/40 bg-white/5 px-4 py-3 font-sans text-[11px] tracking-[.05em] max-[900px]:bottom-[16%] max-[900px]:top-auto max-[680px]:right-5 max-[680px]:bottom-[25%]">
+        {t("START A PROJECT")} <ArrowUpRight size={16} />
       </a>
-
-      <footer className="bottom-ui absolute inset-x-[clamp(22px,4.3vw,68px)] bottom-7 z-20 flex items-center justify-between font-sans text-[11px] tracking-[.06em] text-white/45 max-[680px]:inset-x-5 max-[680px]:bottom-5 max-[680px]:text-[11px]">
-        <div className="flex items-center gap-5 max-[680px]:gap-2">
-          <button type="button" className="flex min-h-11 items-center gap-1.5 text-white/90" onClick={togglePlaying}>
-            {playing ? <Pause size={14} /> : <Play size={14} />}
-            {playing ? "PAUSE" : "PLAY"}
-          </button>
-          <button type="button" className="flex min-h-11 items-center gap-1.5 text-white/90" onClick={restart}>
-            <RotateCcw size={14} /> REPLAY
-          </button>
-          <span className="whitespace-nowrap text-white/60 max-[680px]:text-[11px]">SCENE 02 / SIGNAL</span>
-        </div>
-      </footer>
     </section>
   );
 }

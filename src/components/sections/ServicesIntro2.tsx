@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { useI18n } from "@/components/i18n/LanguageProvider";
 
 const services = [
   {
@@ -39,6 +40,7 @@ const services = [
 ];
 
 export default function ServicesIntro2() {
+  const { t, href, isRTL } = useI18n();
   const sectionRef = useRef<HTMLElement | null>(null);
   const armRef = useRef<HTMLDivElement | null>(null);
 
@@ -90,48 +92,50 @@ export default function ServicesIntro2() {
       </div>
 
       <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-[1920px] grid-cols-1 gap-7 px-5 py-6 sm:px-8 sm:py-8 md:px-10 lg:grid-cols-[minmax(300px,0.98fr)_minmax(0,2fr)] lg:gap-6 xl:gap-9 xl:px-[clamp(48px,4vw,80px)]">
-        <div className="relative flex min-h-[610px] flex-col sm:min-h-[650px] lg:min-h-[calc(100svh-4rem)]">
+        <div className="relative flex flex-col lg:min-h-[calc(100svh-4rem)]">
           <div className="relative z-10 mt-10 max-w-[530px] sm:mt-14 lg:mt-[clamp(72px,12vh,142px)]">
             <p className="mb-6 flex items-center gap-4 font-sans text-[10px] font-medium uppercase tracking-[0.2em] text-[#58844d] sm:text-xs">
               <span aria-hidden="true" className="h-px w-8 bg-[#315c36]" />
-              What we do
+              {t("What we do")}
             </p>
             <h2
               id="services-title"
               className="max-w-[540px] text-[clamp(46px,5vw,78px)] font-semibold leading-[1.02] tracking-[-0.035em] lg:text-[clamp(48px,4.3vw,72px)]"
             >
-              Ideas into
+              {t("Ideas into")}
               <br />
-              digital impact<span className="text-[#71bc70]">.</span>
+              {t("digital impact")}<span className="text-[#71bc70]">.</span>
             </h2>
             <p className="mt-6 max-w-[390px] text-[15px] leading-[1.55] text-[#102511]/65 sm:text-lg">
-              Marketing and technology,
-              <br className="hidden sm:block" /> built to move your business forward.
+              {t("Marketing and technology,")}
+              <br className="hidden sm:block" /> {t("built to move your business forward.")}
             </p>
             <Link
-              href="/contact"
+              href={href("/contact")}
               className="group mt-8 inline-flex min-h-12 items-center gap-4 rounded-full border border-[#315c36]/80 px-5 py-3 font-sans text-[10px] font-medium uppercase tracking-[0.16em] text-[#102511] transition duration-200 hover:bg-[#102511] hover:text-[#f3f0e7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#71bc70] sm:px-6"
             >
-              Let&apos;s talk
+              {t("Let's talk")}
               <ArrowRight size={16} aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
           </div>
 
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-[-26px] left-[-18vw] z-0 w-[min(96vw,510px)] sm:left-[-12vw] sm:w-[min(76vw,580px)] lg:bottom-[-18px] lg:left-[clamp(-115px,-7vw,-35px)] lg:w-[min(39vw,650px)]"
+            className={`pointer-events-none relative -mb-[26px] mt-8 z-0 w-[min(96vw,510px)] sm:w-[min(76vw,580px)] lg:absolute lg:bottom-[-18px] lg:mb-0 lg:mt-0 lg:w-[min(39vw,650px)] ${isRTL ? "right-[-18vw] sm:right-[-12vw] lg:right-[clamp(-115px,-7vw,-35px)]" : "left-[-18vw] sm:left-[-12vw] lg:left-[clamp(-115px,-7vw,-35px)]"}`}
           >
-            <div ref={armRef} data-in-view="false" className="services-intro2-arm-motion w-full">
-              <Image
-                src="/mascot/arm-mascot.webp"
-                alt=""
-                aria-hidden="true"
-                width={1898}
-                height={829}
-                sizes="(max-width: 639px) 96vw, (max-width: 1023px) 76vw, 39vw"
-                className="block h-auto w-full object-contain"
-                style={{ transform: "scaleX(-1)" }}
-              />
+            <div className={`w-full ${isRTL ? "-scale-x-100" : ""}`}>
+              <div ref={armRef} data-in-view="false" className="services-intro2-arm-motion w-full">
+                <Image
+                  src="/mascot/arm-mascot.webp"
+                  alt=""
+                  aria-hidden="true"
+                  width={1898}
+                  height={829}
+                  sizes="(max-width: 639px) 96vw, (max-width: 1023px) 76vw, 39vw"
+                  className="block h-auto w-full object-contain"
+                  style={{ transform: "scaleX(-1)" }}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -145,14 +149,14 @@ export default function ServicesIntro2() {
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <Image
                   src={service.image}
-                  alt={service.alt}
+                  alt={t(service.alt)}
                   fill
                   sizes="(max-width: 639px) 46vw, (max-width: 1023px) 44vw, 22vw"
                   className="object-contain p-1 transition-transform duration-500 ease-out group-hover:scale-[1.035]"
                 />
               </div>
               <h3 className="px-3 pb-4 pt-1 text-[clamp(12px,1.2vw,18px)] font-semibold leading-tight tracking-[-0.035em] text-[#102511] sm:px-4 sm:pb-5 sm:text-base xl:px-5 xl:text-lg">
-                {service.title}
+                {t(service.title)}
               </h3>
             </article>
           ))}

@@ -1,8 +1,12 @@
+"use client";
+
 import Image from "next/image";
+import { useI18n } from "@/components/i18n/LanguageProvider";
 
 type LogoProps = { size?: "header" | "micro" };
 
 export default function Logo({ size = "header" }: LogoProps) {
+  const { t } = useI18n();
   const dimensions = size === "micro"
     ? "h-[18px] w-[33px]"
     : "h-[49px] w-[90px] max-[680px]:h-[40px] max-[680px]:w-[74px]";
@@ -11,7 +15,7 @@ export default function Logo({ size = "header" }: LogoProps) {
   return (
     <Image
       src="/logo/3mo.png"
-      alt="3Mo logo"
+      alt={t("3Mo logo")}
       width={205}
       height={112}
       sizes={imageSizes}

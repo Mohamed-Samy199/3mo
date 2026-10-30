@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
 import { createPageMetadata } from "@/lib/seo";
+import { fontVariables } from "@/lib/fonts";
 import "./globals.css";
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm-sans",
-  display: "swap",
-});
 
 export const metadata: Metadata = createPageMetadata({
   title: "3Mo — Creative technology for ideas in motion",
@@ -18,8 +12,8 @@ export const metadata: Metadata = createPageMetadata({
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={dmSans.variable}>{children}</body>
+    <html lang="en" dir="ltr">
+      <body className={fontVariables}>{children}</body>
     </html>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { localizePath, pagePath, type Locale } from "@/lib/i18n/config";
 
 const siteOrigin = readSiteOrigin();
 
@@ -16,6 +17,16 @@ export const seoKeywords = [
   "digital systems",
 ] as const;
 
+type PageMetadataOptions = {
+  title: string;
+  description: string;
+  path?: string;
+  type?: "website" | "article";
+  imageAlt?: string;
+  indexable?: boolean;
+  locale?: Locale;
+};
+
 export function getPublicSiteUrl(): string | undefined {
   return siteOrigin;
 }
@@ -26,15 +37,6 @@ export function absoluteUrl(path: string): string | undefined {
   return new URL(normalizedPath.replace(/^\/+/, ""), `${siteOrigin}/`).toString();
 }
 
-type PageMetadataOptions = {
-  title: string;
-  description: string;
-  path?: string;
-  type?: "website" | "article";
-  imageAlt?: string;
-  indexable?: boolean;
-};
-
 export function createPageMetadata({
   title,
   description,
@@ -42,21 +44,31 @@ export function createPageMetadata({
   type = "website",
   imageAlt = socialImage.alt,
   indexable = true,
+  locale = "en",
 }: PageMetadataOptions): Metadata {
-  const url = indexable ? absoluteUrl(path) : undefined;
+  const canonicalPath = localizePath(path, locale);
+  const url = indexable ? absoluteUrl(canonicalPath) : undefined;
   const imageUrl = absoluteUrl(socialImage.path);
+  const languages = indexable ? languageAlternates(path) : undefined;
+  const alternates = indexable ? {
+    ...(url ? { canonical: url } : {}),
+    ...(languages ? { languages } : {}),
+  } : { canonical: null, languages: {} };
+  const openGraphLocale = locale === "ar" ? "ar_AR" : "en_US";
 
   return {
     title,
     description,
     keywords: [...seoKeywords],
     ...(siteOrigin ? { metadataBase: new URL(siteOrigin) } : {}),
-    alternates: { canonical: url ?? null },
+    ...(Object.keys(alternates).length ? { alternates } : {}),
     openGraph: {
       type,
       title,
       description,
       siteName: "3Mo",
+      locale: openGraphLocale,
+      alternateLocale: [locale === "ar" ? "en_US" : "ar_AR"],
       ...(url ? { url } : {}),
       ...(imageUrl
         ? {
@@ -83,7 +95,7 @@ export function createPageMetadata({
   };
 }
 
-export function organizationStructuredData() {
+export function organizationStructuredData(locale: Locale = "en") {
   const logo = absoluteUrl("/logo/3mo-mark.png");
   const url = absoluteUrl("/");
 
@@ -91,21 +103,27 @@ export function organizationStructuredData() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "3Mo",
-    description: "Creative technology studio for ideas in motion.",
+    description:
+      locale === "ar"
+        ? "استوديو للتقنية الإبداعية يصمم العلامات والتجارب والأنظمة للأفكار المتحركة."
+        : "Creative technology studio for ideas in motion.",
     ...(url ? { url } : {}),
     ...(logo ? { logo } : {}),
   };
 }
 
-export function collectionPageStructuredData(projectNames: string[]) {
-  const url = absoluteUrl("/projects");
+export function collectionPageStructuredData(projectNames: string[], locale: Locale = "en") {
+  const url = absoluteUrl(pagePath("projects", locale));
 
   return {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Selected projects from 3Mo studio",
+    name: locale === "ar" ? "مشاريع مختارة من استوديو 3Mo" : "Selected projects from 3Mo studio",
     description:
-      "A growing collection of 3Mo identities, campaigns, web experiences, content, and digital systems.",
+      locale === "ar"
+        ? "مجموعة متنامية من هويات 3Mo وحملاتها وتجارب الويب والمحتوى والأنظمة الرقمية."
+        : "A growing collection of 3Mo identities, campaigns, web experiences, content, and digital systems.",
+    inLanguage: locale === "ar" ? "ar" : "en",
     ...(url ? { url } : {}),
     mainEntity: {
       "@type": "ItemList",
@@ -121,6 +139,16 @@ export function collectionPageStructuredData(projectNames: string[]) {
 
 export function jsonLd(data: Record<string, unknown>): string {
   return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
+function languageAlternates(path: string): Record<string, string> | undefined {
+  if (!siteOrigin) return undefined;
+  const englishPath = localizePath(path, "en");
+  const arabicPath = localizePath(englishPath, "ar");
+  const english = absoluteUrl(englishPath);
+  const arabic = absoluteUrl(arabicPath);
+  if (!english || !arabic) return undefined;
+  return { en: english, ar: arabic, "x-default": english };
 }
 
 function readSiteOrigin(): string | undefined {

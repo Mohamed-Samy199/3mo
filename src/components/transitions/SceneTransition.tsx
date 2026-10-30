@@ -1,7 +1,6 @@
-"use client";
-
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
+import { useI18n } from "@/components/i18n/LanguageProvider";
 
 type SceneTransitionProps = {
   transitionKey: number;
@@ -10,6 +9,7 @@ type SceneTransitionProps = {
 };
 
 export default function SceneTransition({ transitionKey, onCovered, onFinished }: SceneTransitionProps) {
+  const { t } = useI18n();
   const layerRef = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
@@ -33,7 +33,7 @@ export default function SceneTransition({ transitionKey, onCovered, onFinished }
 
   return (
     <div ref={layerRef} aria-hidden="true" className="pointer-events-none absolute inset-0 z-[100] opacity-0" style={{ background: "linear-gradient(135deg, #0d2412 0%, #1c5123 48%, #a4ef91 100%)" }}>
-      <div className="absolute bottom-8 left-8 font-sans text-xs uppercase tracking-[.12em] text-[#eaffdf]/75">3MO / SIGNAL SHIFT</div>
+      <div className="absolute bottom-8 left-8 font-sans text-xs uppercase tracking-[.12em] text-[#eaffdf]/75">{t("3MO / SIGNAL SHIFT")}</div>
     </div>
   );
 }
