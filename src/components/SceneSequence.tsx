@@ -62,20 +62,20 @@ export default function SceneSequence() {
         {scene === 3 && <FieldKitScene onComplete={completeScene} />}
         {scene === 4 && <ClosingScene />}
       </div>
-      {scene < 4 && (
-        <button
-          type="button"
-          disabled={transitioning}
-          onClick={() => startTransition(4)}
-          className="scene-intro-control absolute bottom-16 right-5 z-40 min-h-11 rounded-full border border-[#102511]/20 bg-[#f3f0e7]/95 px-4 text-xs font-medium text-[#102511] shadow-sm disabled:opacity-50 sm:right-8"
-          aria-label={t("Skip to the final introduction scene")}
-        >
-          {t("Skip intro")}
-        </button>
-      )}
-      <footer className={`absolute inset-x-5 bottom-5 z-20 flex justify-between text-[11px] sm:inset-x-8 ${scene === 2 ? "text-white/60" : "text-[#102511]/60"}`}>
-        <span className="hidden sm:block">{t(sceneCaptions[scene])}</span>
-        <span>{t(sceneLabels[scene])}</span>
+      <footer className={`pointer-events-none absolute inset-x-5 bottom-4 z-20 grid grid-cols-[1fr_auto_1fr] items-center text-[11px] sm:inset-x-8 ${scene === 2 ? "text-white/60" : "text-[#102511]/60"}`}>
+        <span className="col-start-1 hidden justify-self-start sm:block">{t(sceneLabels[scene])}</span>
+        <span className="col-start-2 hidden px-4 text-center sm:block">{t(sceneCaptions[scene])}</span>
+        {scene < 4 && (
+          <button
+            type="button"
+            disabled={transitioning}
+            onClick={() => startTransition(4)}
+            className="scene-intro-control pointer-events-auto col-start-3 min-h-11 justify-self-end rounded-full border border-[#102511]/20 bg-[#f3f0e7]/95 px-4 text-xs font-medium text-[#102511] shadow-sm disabled:opacity-50"
+            aria-label={t("Skip to the final introduction scene")}
+          >
+            {t("Skip intro")}
+          </button>
+        )}
       </footer>
       <SceneTransition transitionKey={transitionKey} onCovered={revealNextScene} onFinished={finishTransition} />
     </div>

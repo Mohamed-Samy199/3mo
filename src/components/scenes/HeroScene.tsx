@@ -21,17 +21,17 @@ export default function HeroScene({ onComplete, playing = true }: HeroSceneProps
       <div className="ambient ambient--two pointer-events-none absolute -bottom-[28vw] -left-[5vw] z-0 h-[40vw] w-[40vw] rounded-full bg-[radial-gradient(circle,rgba(22,78,32,.66),transparent_68%)]" />
       <div className="grain pointer-events-none absolute inset-0 z-30 opacity-[.08] mix-blend-screen [background-image:url('data:image/svg+xml,%3Csvg viewBox=%270 0 180 180%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.92%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27 opacity=%27.5%27/%3E%3C/svg%3E')" />
 
-      <section className="copy-block absolute left-[clamp(22px,8.5vw,136px)] top-[26%] z-[12] max-[680px]:left-5 max-[680px]:top-[17vh]">
+      <section className="copy-block absolute left-[clamp(22px,8.5vw,136px)] top-[26%] z-[12] max-[680px]:pointer-events-none max-[680px]:bottom-[calc(25%-64px)] max-[680px]:left-5 max-[680px]:right-5 max-[680px]:top-[17vh] max-[680px]:flex max-[680px]:flex-col">
         <p className="kicker mb-7 font-sans text-[10px] uppercase tracking-[.1em] text-[#a4ef91] max-[680px]:mb-5 max-[680px]:text-[11px]">
           {t("A signal from 3Mo")} <span className="ml-3 text-[#f3f3ed]">↗</span>
         </p>
-        <div className="hero-copy">
+        <div className="hero-copy max-[680px]:flex max-[680px]:flex-1 max-[680px]:flex-col">
           <h2 className="text-[clamp(78px,11vw,174px)] font-semibold uppercase leading-[1.02] tracking-[-0.035em] max-[680px]:text-[20vw]">
             {t("Make it")}
             <br />
             <span className="font-sans font-medium normal-case">{t("move.")}</span>
           </h2>
-          <p className="mt-9 ml-2 w-[260px] text-[13px] leading-[1.45] text-white/55 max-[680px]:mt-6 max-[680px]:w-[210px] max-[680px]:text-[11px]">
+          <p className="mt-9 ml-2 w-[260px] text-[13px] leading-[1.45] text-white/55 max-[680px]:ml-auto max-[680px]:mt-auto max-[680px]:w-[210px] max-[680px]:text-right max-[680px]:text-[11px]">
             {t("Three minds shaping one clear direction.")}
           </p>
         </div>

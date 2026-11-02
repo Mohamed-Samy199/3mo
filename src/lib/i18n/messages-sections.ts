@@ -36,7 +36,7 @@ export const arSectionMessages: Record<string, string> = {
   "MAKE IT RESONATE": "اجعله يترك أثرًا",
 
   "OUR WORK": "أعمالنا",
-  "Ideas. Made.": "أفكار. صُنعت.",
+  "Ideas. Made.": "أفكار صُنعت.",
   "Real impact.": "أثر حقيقي.",
   "Strategy, creativity, and technology—brought together by three minds to move good ideas into the real world.": "استراتيجية وإبداع وتقنية، تجمعها ثلاثة عقول لتحويل الأفكار الجيدة إلى واقع ملموس.",
   "3Mo mark": "علامة 3Mo",
