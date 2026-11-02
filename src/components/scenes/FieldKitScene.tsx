@@ -58,7 +58,7 @@ export default function FieldKitScene({ onComplete, playing = true }: FieldKitSc
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-[#f3f0e7]/20 via-transparent to-[#f3f0e7]/5" />
       <div className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-t from-[#f3f0e7]/20 via-transparent to-[#f3f0e7]/10" />
       <section
-        className="field-kit-copy absolute left-[clamp(28px,10vw,160px)] top-[24%] z-10 w-[min(300px,calc(100%-48px))] max-[680px]:left-1/2 max-[680px]:top-[22%] max-[680px]:w-max max-[680px]:max-w-[calc(100%-48px)] max-[680px]:-translate-x-1/2 max-[680px]:rounded-2xl max-[680px]:bg-[#f3f0e7]/60 max-[680px]:px-5 max-[680px]:py-4 max-[680px]:text-center max-[680px]:shadow-[0_8px_30px_rgba(16,37,17,.08)] max-[680px]:backdrop-blur-sm"
+        className="field-kit-copy absolute left-[clamp(28px,10vw,160px)] top-[24%] z-10 w-[min(340px,calc(100%-48px))] rounded-2xl border border-[#f3f0e7]/40 bg-[#f3f0e7]/35 px-6 py-5 shadow-[0_8px_30px_rgba(16,37,17,.08)] backdrop-blur-sm max-[680px]:left-1/2 max-[680px]:top-[22%] max-[680px]:w-max max-[680px]:max-w-[calc(100%-48px)] max-[680px]:-translate-x-1/2 max-[680px]:px-4 max-[680px]:py-3 max-[680px]:text-center"
         aria-label={t("3Mo signal kit introduction")}
       >
         <span className="field-kit-eyebrow mb-4 block font-sans text-[10px] uppercase tracking-[.1em] text-[#3e9d51] max-[680px]:mb-2 max-[680px]:text-[11px]">

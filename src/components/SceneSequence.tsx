@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import FieldKitScene from "@/components/scenes/FieldKitScene";
 import HeroScene from "@/components/scenes/HeroScene";
 import LogoSignalScene from "@/components/scenes/LogoSignalScene";
@@ -28,6 +28,7 @@ export default function SceneSequence() {
   const [scene, setScene] = useState<SceneIndex>(1);
   const [transitionKey, setTransitionKey] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
+  const shellRef = useRef<HTMLDivElement | null>(null);
   const pendingSceneRef = useRef<SceneIndex | null>(null);
   const transitioningRef = useRef(false);
 
@@ -50,12 +51,34 @@ export default function SceneSequence() {
     setTransitioning(false);
   }, []);
 
+  // Tell the fixed navbar when it sits over the dark scene 2, so it can switch to light link colors.
+  useEffect(() => {
+    const root = document.documentElement;
+    const shell = shellRef.current;
+    let inView = true;
+    const sync = () => {
+      if (scene === 2 && inView) root.setAttribute("data-nav-on-dark", "true");
+      else root.removeAttribute("data-nav-on-dark");
+    };
+    sync();
+    if (!shell || typeof IntersectionObserver === "undefined") return () => root.removeAttribute("data-nav-on-dark");
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.boundingClientRect.top <= 80 && entry.boundingClientRect.bottom > 80;
+      sync();
+    }, { threshold: [0, 0.01, 0.1, 0.25, 0.5, 0.75, 1] });
+    observer.observe(shell);
+    return () => {
+      observer.disconnect();
+      root.removeAttribute("data-nav-on-dark");
+    };
+  }, [scene]);
+
   const completeScene = useCallback(() => {
     if (scene < 4) startTransition((scene + 1) as SceneIndex);
   }, [scene, startTransition]);
 
   return (
-    <div className="scene-shell relative isolate w-full overflow-hidden" dir={isRTL ? "rtl" : "ltr"} aria-label={t("3Mo studio introduction")} data-scene={scene}>
+    <div ref={shellRef} className="scene-shell relative isolate w-full overflow-hidden" dir={isRTL ? "rtl" : "ltr"} aria-label={t("3Mo studio introduction")} data-scene={scene}>
       <div key={scene} className="h-full w-full">
         {scene === 1 && <LogoSignalScene onComplete={completeScene} />}
         {scene === 2 && <HeroScene onComplete={completeScene} />}

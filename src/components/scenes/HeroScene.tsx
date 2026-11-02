@@ -31,7 +31,7 @@ export default function HeroScene({ onComplete, playing = true }: HeroSceneProps
             <br />
             <span className="font-sans font-medium normal-case">{t("move.")}</span>
           </h2>
-          <p className="mt-9 ml-2 w-[260px] text-[13px] leading-[1.45] text-white/55 max-[680px]:ml-auto max-[680px]:mt-auto max-[680px]:w-[210px] max-[680px]:text-right max-[680px]:text-[11px]">
+          <p className="mt-9 ml-2 w-[260px] text-[13px] leading-[1.45] text-white/55 max-[680px]:ml-auto max-[680px]:mt-auto max-[680px]:w-[210px] max-[680px]:text-right max-[680px]:text-[11px] max-[680px]:ltr:ml-0 max-[680px]:ltr:mr-auto max-[680px]:ltr:text-left">
             {t("Three minds shaping one clear direction.")}
           </p>
         </div>
@@ -82,7 +82,7 @@ export default function HeroScene({ onComplete, playing = true }: HeroSceneProps
         </div>
       </div>
 
-      <a href={href("#contact")} className="cta-button absolute right-[clamp(22px,5vw,78px)] top-1/2 z-20 flex items-center gap-3 border border-white/40 bg-white/5 px-4 py-3 font-sans text-[11px] tracking-[.05em] max-[900px]:bottom-[16%] max-[900px]:top-auto max-[680px]:right-5 max-[680px]:bottom-[25%]">
+      <a href={href("#contact")} className="cta-button absolute right-[clamp(22px,5vw,78px)] top-1/2 z-20 flex items-center gap-3 border border-white/40 bg-white/5 px-4 py-3 font-sans text-[11px] tracking-[.05em] max-[900px]:bottom-[16%] max-[900px]:top-auto max-[680px]:right-5 max-[680px]:bottom-[25%] max-[680px]:ltr:right-auto max-[680px]:ltr:left-5 max-[680px]:ltr:bottom-[calc(25%-120px)] max-[680px]:rtl:bottom-[calc(25%-16px)]">
         {t("START A PROJECT")} <ArrowUpRight size={16} />
       </a>
     </section>

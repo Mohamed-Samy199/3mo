@@ -11,7 +11,7 @@
 
 @layer base {
   *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 0; }
   html, body { margin: 0; min-height: 100%; background: var(--forest); }
   body {
     overflow-x: clip;
@@ -27,7 +27,7 @@
   button:disabled { cursor: not-allowed; }
   :focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
   img, video { max-width: 100%; }
-  section[id] { scroll-margin-top: 96px; }
+  section[id] { scroll-margin-top: 0; }
   ::selection { background: var(--green); color: var(--forest); }
 }
 
@@ -187,4 +187,10 @@
     background: linear-gradient(135deg, rgba(243, 240, 231, .94), rgba(243, 240, 231, .82));
     pointer-events: none;
   }
+}
+
+/* Large screens only: navbar links go light while the header sits over the dark scene 2. */
+@media (min-width: 1024px) {
+  html[data-nav-on-dark="true"] .site-nav-links a { color: #f3f0e7; }
+  html[data-nav-on-dark="true"] .site-nav-links a:hover { color: #a4ef91; }
 }

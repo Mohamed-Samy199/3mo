@@ -94,7 +94,7 @@ export default function LogoSignalScene({
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-[#f3f0e7]/10 via-transparent to-[#f3f0e7]/10" />
       <div className="pointer-events-none absolute inset-0 z-[2] opacity-[.035] mix-blend-multiply [background-image:url('data:image/svg+xml,%3Csvg viewBox=%270 0 180 180%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.92%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27 opacity=%27.5%27/%3E%3C/svg%3E')]" />
       <section
-        className="signal-copy absolute left-[51%] top-[42%] z-10 -translate-y-1/2 max-[680px]:left-5 max-[680px]:right-5 max-[680px]:top-auto max-[680px]:bottom-[32%] max-[680px]:translate-y-0"
+        className="signal-copy absolute left-[51%] top-[42%] z-10 ps-4 -translate-y-1/2 max-[680px]:left-5 max-[680px]:right-5 max-[680px]:rtl:right-9 max-[680px]:top-auto max-[680px]:bottom-[32%] max-[680px]:translate-y-0"
         aria-label={t("3Mo introduction")}
       >
         <span className="signal-eyebrow mb-5 block font-sans text-[clamp(8px,.75vw,12px)] font-medium tracking-[.08em] text-[#5daa5a] max-[680px]:mb-2 max-[680px]:text-[11px]">

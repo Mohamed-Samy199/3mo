@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useDialogFocus } from "@/hooks/useDialogFocus";
 import { useI18n } from "@/components/i18n/LanguageProvider";
 
-const navigationItems = [
+export const navigationItems = [
   { number: "01", label: "About us", href: "/#about" },
   { number: "02", label: "The 3Mo Method", href: "/#method" },
   { number: "03", label: "Services", href: "/#services" },
@@ -22,10 +22,10 @@ export default function SceneNavigation() {
   useDialogFocus(isOpen, panelRef, closeMenu);
   return (
     <>
-      <button type="button" onClick={() => setIsOpen(true)} className="fixed right-[clamp(20px,4.3vw,68px)] top-[clamp(16px,3.5vh,32px)] z-[120] flex h-12 w-12 items-center justify-center rounded-full border border-[#f3f0e7]/35 bg-[#102511] text-[#f3f0e7] shadow-[0_8px_24px_rgba(16,37,17,.24)] transition duration-300 hover:bg-[#71bc70] hover:text-[#102511]" aria-label={t("Open navigation menu")} aria-expanded={isOpen} aria-controls="scene-navigation-panel">
+      <button type="button" onClick={() => setIsOpen(true)} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#f3f0e7]/35 bg-[#102511] text-[#f3f0e7] shadow-[0_8px_24px_rgba(16,37,17,.24)] transition duration-300 hover:bg-[#71bc70] hover:text-[#102511] lg:hidden" aria-label={t("Open navigation menu")} aria-expanded={isOpen} aria-controls="scene-navigation-panel">
         <span className="flex w-[18px] flex-col gap-[5px]" aria-hidden="true"><i className="h-px w-full bg-current" /><i className="ml-auto h-px w-[70%] bg-current" /></span>
       </button>
-      <div className={`fixed inset-0 z-[140] ${isOpen ? "pointer-events-auto" : "pointer-events-none"}`} aria-hidden={!isOpen} inert={!isOpen}>
+      <div className={`fixed inset-0 z-[140] lg:hidden ${isOpen ? "pointer-events-auto" : "pointer-events-none"}`} aria-hidden={!isOpen} inert={!isOpen}>
         <button type="button" tabIndex={-1} onClick={closeMenu} aria-label={t("Close navigation menu")} className={`absolute inset-0 h-full w-full bg-[#102511]/45 backdrop-blur-[2px] transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`} />
         <aside ref={panelRef} id="scene-navigation-panel" role="dialog" aria-modal={isOpen ? true : undefined} aria-labelledby="navigation-title" tabIndex={-1} className={`absolute inset-y-0 right-0 flex w-[min(460px,92vw)] flex-col overflow-y-auto overscroll-contain bg-[#f3f0e7] px-6 pb-8 pt-24 text-[#102511] shadow-[-24px_0_80px_rgba(0,0,0,.2)] transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] sm:px-10 sm:pt-28 ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
           <button type="button" onClick={closeMenu} aria-label={t("Close navigation menu")} className="absolute right-6 top-5 grid h-12 w-12 place-items-center rounded-full bg-[#102511] text-[#f3f0e7] sm:right-10"><X size={20} /></button>
@@ -44,5 +44,18 @@ export default function SceneNavigation() {
         </aside>
       </div>
     </>
+  );
+}
+
+export function DesktopNavLinks() {
+  const { t, href } = useI18n();
+  return (
+    <nav className="site-nav-links hidden items-center gap-6 lg:flex xl:gap-8" aria-label={t("Page sections")}>
+      {navigationItems.map((item) => (
+        <Link key={item.number} href={href(item.href)} className="whitespace-nowrap text-sm font-medium text-[#102511]/80 transition-colors hover:text-[#3e9d51] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#71bc70]">
+          {t(item.label)}
+        </Link>
+      ))}
+    </nav>
   );
 }
