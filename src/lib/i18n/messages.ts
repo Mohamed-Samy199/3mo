@@ -26,6 +26,13 @@ const arCommonMessages: Record<string, string> = {
   "3MO / SIGNAL SHIFT": "3MO / انتقال الإشارة",
   "Switch to Arabic": "التبديل إلى العربية",
   "Switch to English": "التبديل إلى الإنجليزية",
+  "Footer navigation": "التنقل في الفوتر",
+  "Explore": "استكشف",
+  "Studio": "الاستوديو",
+  "Get in touch": "تواصل معنا",
+  "Creative technology, branding and digital experiences.": "حلول إبداعية وهوية بصرية وتجارب رقمية.",
+  "All rights reserved.": "جميع الحقوق محفوظة.",
+  "Back to top": "العودة للأعلى",
   "Please check this field.": "يرجى التحقق من القيمة المدخلة في هذا الحقل.",
 };
 

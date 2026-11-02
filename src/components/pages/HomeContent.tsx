@@ -1,6 +1,7 @@
 "use client";
 
 import SceneSequence from "@/components/SceneSequence";
+import SiteFooter from "@/components/ui/SiteFooter";
 import PersistentSiteChrome from "@/components/ui/PersistentSiteChrome";
 import ServicesIntro from "@/components/sections/ServicesIntro";
 import ServicesIntro2 from "@/components/sections/ServicesIntro2";
@@ -25,6 +26,7 @@ export default function HomeContent() {
         <ProjectsShowcaseSection />
         <ContactSection />
       </main>
+      <SiteFooter />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(organizationStructuredData(locale)) }} />
     </>
   );
