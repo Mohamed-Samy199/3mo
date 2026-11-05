@@ -21,7 +21,7 @@ export default function ClosingScene({ playing = true }: { playing?: boolean }) 
         aria-label={t("3Mo closing robot scene")}
       />
       <section
-        className="absolute left-[clamp(22px,7vw,112px)] top-1/2 z-10 w-[clamp(220px,22vw,340px)] -translate-y-1/2 max-[680px]:left-5 max-[680px]:top-[24%] max-[680px]:w-[190px] rounded-2xl border border-[#f3f0e7]/40 bg-[#f3f0e7]/35 px-6 py-5 shadow-[0_8px_30px_rgba(16,37,17,.08)] backdrop-blur-sm max-[680px]:px-4 max-[680px]:py-3 max-[680px]:translate-y-0"
+        className="absolute left-[clamp(22px,7vw,112px)] top-1/2 z-10 w-[clamp(220px,22vw,340px)] -translate-y-1/2 max-[680px]:left-5 max-[680px]:top-[24%] max-[680px]:w-[190px] px-6 py-5 max-[680px]:rounded-2xl max-[680px]:border max-[680px]:border-[#f3f0e7]/40 max-[680px]:bg-[#f3f0e7]/35 max-[680px]:shadow-[0_8px_30px_rgba(16,37,17,.08)] max-[680px]:backdrop-blur-sm max-[680px]:px-4 max-[680px]:py-3 max-[680px]:translate-y-0"
         aria-label={t("3Mo closing statement")}
       >
         <p className="mb-5 font-sans text-[11px] uppercase tracking-[.1em] text-[#58844d] max-[680px]:mb-3 max-[680px]:text-[11px]">
@@ -40,7 +40,7 @@ export default function ClosingScene({ playing = true }: { playing?: boolean }) 
         </p>
       </section>
       <section
-        className="absolute right-[clamp(22px,7vw,112px)] top-1/2 z-10 w-[clamp(220px,20vw,320px)] -translate-y-1/2 text-right max-[680px]:right-5 max-[680px]:top-auto max-[680px]:bottom-[25%] max-[680px]:rtl:bottom-[calc(25%-56px)] max-[680px]:w-[190px] rounded-2xl border border-[#f3f0e7]/40 bg-[#f3f0e7]/35 px-6 py-5 shadow-[0_8px_30px_rgba(16,37,17,.08)] backdrop-blur-sm max-[680px]:px-4 max-[680px]:py-3 max-[680px]:translate-y-0"
+        className="absolute right-[clamp(22px,7vw,112px)] top-1/2 z-10 w-[clamp(220px,20vw,320px)] -translate-y-1/2 text-right max-[680px]:right-5 max-[680px]:top-auto max-[680px]:bottom-[14%] max-[680px]:rtl:bottom-[calc(14%-24px)] max-[680px]:w-[190px] px-6 py-5 max-[680px]:rounded-2xl max-[680px]:border max-[680px]:border-[#f3f0e7]/40 max-[680px]:bg-[#f3f0e7]/35 max-[680px]:shadow-[0_8px_30px_rgba(16,37,17,.08)] max-[680px]:backdrop-blur-sm max-[680px]:px-4 max-[680px]:py-3 max-[680px]:translate-y-0"
         aria-label={t("3Mo closing identity")}
       >
         <p className="mb-4 font-sans text-[11px] uppercase tracking-[.1em] text-[#102511]/50 max-[680px]:mb-2 max-[680px]:text-[11px]">
